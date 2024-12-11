@@ -6,13 +6,14 @@ import org.springframework.stereotype.Component;
 import models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
 
     private static final String SELECT_ALL = "SELECT * FROM book_keeper_schema.person";
     private static final String SELECT_BY_ID = "SELECT * FROM book_keeper_schema.person WHERE id=?";
-    private static final String INSERT_PERSON = "INSERT INTO book_keeper_schema.person VALUES(1, ?, ?, ?)";
+    private static final String INSERT_PERSON = "INSERT INTO book_keeper_schema.person (name, age, email) VALUES (?, ?, ?)";
     private static final String UPDATE_PERSON = "UPDATE book_keeper_schema.person SET name=?, age=?, email=? WHERE id=?";
     private static final String DELETE_PERSON = "DELETE FROM book_keeper_schema.person WHERE id=?";
 
@@ -27,9 +28,9 @@ public class PersonDAO {
         return jdbcTemplate.query(SELECT_ALL, new PersonMapper());
     }
 
-    public Person show(int id) {
+    public Optional<Person> show(int id) {
         return jdbcTemplate.query(SELECT_BY_ID, new PersonMapper(), new Object[]{id})
-                .stream().findAny().orElse(null);
+                .stream().findAny();
     }
 
     public void save(Person person) {
