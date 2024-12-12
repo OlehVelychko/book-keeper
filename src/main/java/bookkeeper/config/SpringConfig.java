@@ -1,4 +1,4 @@
-package config;
+package bookkeeper.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
-@ComponentScan()
+@ComponentScan("bookkeeper")
 @EnableWebMvc
 @PropertySource("classpath:application.properties")
 public class SpringConfig implements WebMvcConfigurer {
@@ -39,6 +39,7 @@ public class SpringConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -54,6 +55,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         registry.viewResolver(resolver);
     }
 

@@ -1,9 +1,9 @@
-package controllers;
+package bookkeeper.controllers;
 
-import dao.BookDAO;
-import dao.PersonDAO;
+import bookkeeper.dao.BookDAO;
+import bookkeeper.dao.PersonDAO;
 import jakarta.validation.Valid;
-import models.Book;
+import bookkeeper.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +50,7 @@ public class BooksController {
         return "books/new";
     }
 
-    @GetMapping()
+    @PostMapping()
     public String create(@ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Book Details</title>
+</head>
+<body>
+<h1 th:text="${book.title}"></h1>
+<p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+<p><strong>Year:</strong> <span th:text="${book.year}"></span></p>
+
+<div th:if="${owner != null}">
+  <p><strong>Owner:</strong> <span th:text="${owner.name}"></span></p>
+  <form th:action="@{'/books/' + ${book.id} + '/release'}" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <button type="submit">Release Book</button>
+  </form>
+</div>
+<div th:if="${owner == null}">
+  <p>This book is currently available.</p>
+  <form th:action="@{'/books/' + ${book.id} + '/assign'}" method="post">
+    <label for="personId">Assign to:</label>
+    <select id="personId" name="personId">
+      <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name}"></option>
+    </select>
+    <button type="submit">Assign</button>
+  </form>
+</div>
+
+<a href="/books">Back to Books</a>
+</body>
+</html>

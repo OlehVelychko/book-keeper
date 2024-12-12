@@ -1,4 +1,4 @@
-package config;
+package bookkeeper.config;
 
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.FilterRegistration;

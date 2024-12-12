@@ -1,6 +1,6 @@
-package dao;
+package bookkeeper.dao;
 
-import models.Book;
+import bookkeeper.models.Book;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ public class BookMapper implements RowMapper<Book> {
         book.setTitle(rs.getString("title"));
         book.setAuthor(rs.getString("author"));
         book.setYear(rs.getInt("year"));
-        book.setPersonId((Integer) rs.getObject("personId"));
+        book.setPersonId((Integer) rs.getObject("person_id"));
 
         return book;
     }
