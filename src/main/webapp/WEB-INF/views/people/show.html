@@ -2,16 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Show</title>
+    <title>Show Person</title>
 </head>
 <body>
-<p th:text="${person.getName() + ', ' + person.getBirthYear()}">VALUE</p>
-<p th:text="${person.getId()}">VALUE</p>
+<div th:if="${person != null}">
+    <p th:text="${person.name + ', ' + person.birthYear}">Person Info</p>
+    <p th:text="${person.id}">Person ID</p>
 
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
+    <a th:href="@{/people/{id}/edit(id=${person.id})}">Edit</a>
 
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.id})}">
+        <input type="submit" value="Delete">
+    </form>
+</div>
+
+<div th:if="${person == null}">
+    <p>Person not found.</p>
+    <a href="/people">Back to list</a>
+</div>
 </body>
 </html>

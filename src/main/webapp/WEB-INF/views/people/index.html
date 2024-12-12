@@ -6,9 +6,17 @@
 </head>
 <body>
 
-<div th:each="person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}"
-       th:text="${person.getName() + ', ' + person.getBirthYear()}">user</a>
+<div th:if="${people.empty}">
+    <p>No people found.</p>
+</div>
+
+<div th:if="${!people.empty}">
+    <ul>
+        <li th:each="person : ${people}">
+            <a th:href="@{/people/{id}(id=${person.id})}"
+               th:text="${person.name + ', ' + person.birthYear}">Person</a>
+        </li>
+    </ul>
 </div>
 
 <br/>

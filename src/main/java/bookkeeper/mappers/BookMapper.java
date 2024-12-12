@@ -1,4 +1,4 @@
-package bookkeeper.dao;
+package bookkeeper.mappers;
 
 import bookkeeper.models.Book;
 import org.springframework.jdbc.core.RowMapper;

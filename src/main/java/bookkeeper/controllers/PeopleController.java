@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import bookkeeper.dao.PersonDAO;
 import bookkeeper.models.Person;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
@@ -28,8 +30,15 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDAO.show(id));
-        return "people/show";
+        Optional<Person> person = personDAO.show(id);
+
+        if (person.isPresent()) {
+            model.addAttribute("person", person.get());
+            return "people/show";
+        } else {
+            model.addAttribute("errorMessage", "Person with ID " + id + " not found.");
+            return "error";
+        }
     }
 
     @GetMapping("/new")
@@ -49,8 +58,15 @@ public class PeopleController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personDAO.show(id));
-        return "people/edit";
+        Optional<Person> person = personDAO.show(id);
+
+        if (person.isPresent()) {
+            model.addAttribute("person", person.get());
+            return "people/edit";
+        } else {
+            model.addAttribute("errorMessage", "Cannot edit. Person with ID " + id + " not found.");
+            return "error";
+        }
     }
 
     @PatchMapping("/{id}")
