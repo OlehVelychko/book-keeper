@@ -85,15 +85,15 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @PatchMapping("/{id}/realise")
+    @PatchMapping("/{id}/release")
     public String realise(@PathVariable("id") int id) {
         bookDAO.release(id);
-        return "redirect:/books" + id;
+        return "redirect:/books/" + id;
     }
 
     @PatchMapping("/{id}/assign")
     public String assign(@PathVariable("id") int id, @RequestParam("personId") int personId) {
         bookDAO.assign(id, personId);
-        return "redirect:/books" + id;
+        return "redirect:/books/" + id;
     }
 }

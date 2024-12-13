@@ -18,6 +18,7 @@
 <div th:if="${owner == null}">
   <p>This book is currently available.</p>
   <form th:action="@{'/books/' + ${book.id} + '/assign'}" method="post">
+    <input type="hidden" name="_method" value="patch">
     <label for="personId">Assign to:</label>
     <select id="personId" name="personId">
       <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.name}"></option>

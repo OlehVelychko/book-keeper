@@ -50,14 +50,10 @@ public class BookDAO {
     }
 
     public void release(int id) {
-        updatePersonId(id, null);
+        jdbcTemplate.update(RELEASE_BOOK, id);
     }
 
     public void assign(int bookId, int personId) {
-        updatePersonId(bookId, personId);
-    }
-
-    private void updatePersonId(int bookId, Integer personId) {
-        jdbcTemplate.update(personId == null ? RELEASE_BOOK : ASSIGN_BOOK, personId, bookId);
+        jdbcTemplate.update(ASSIGN_BOOK, personId, bookId);
     }
 }
